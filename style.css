@@ -1,0 +1,127 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin:0px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    background: url(https://images.unsplash.com/photo-1553578318-2089b5874219?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80) no-repeat;
+    background-size: cover;
+}
+.header{
+    width:90%;
+    margin:auto;
+    height:100px;
+    border-bottom:3px solid red;
+}
+#title{
+    width:30%;
+}
+.header h1{
+    font-size:2.5rem;
+    width:60%;
+    float:left;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 500;
+}
+.header a{
+    text-decoration: none;
+    padding:10px;
+    color:#333;
+    font-size:1.3rem;
+    float:right;
+    margin:20px;
+    font-family: 'Ubuntu', sans-serif;
+}
+header a:hover{
+    box-shadow: 1px 0.5px 3px teal;
+}
+.form{
+    width:50%;
+    height:300px;
+    margin:auto; 
+    margin-top:100px;
+    background: url(https://cdn.pixabay.com/photo/2016/06/13/17/30/mail-1454731_960_720.png) no-repeat;
+    background-size: contain;
+    padding:20px;
+    padding-top:100px; 
+    border:1px solid tomato;
+    box-shadow:1px 0px 3px rgba(231, 78, 78, 0.568);
+    text-align: right;
+}
+input{
+    border:0px;
+    outline: 0px;
+    border-bottom:2px solid teal;
+    padding:10px;
+}
+input[type=submit]{
+    border:0px;
+    padding: 10px 30px; 
+    margin:-10px;
+    outline: 0px;
+    border-radius: 5px;
+    color:#fff;
+    font-weight: 600;
+    background-color: turquoise;
+}
+ul{
+    list-style-type: none;
+}
+ul li{
+    float:left;
+    padding:10px;
+}
+li a{
+    border:2px solid transparent;
+}
+li a:hover{
+    animation-name: link;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+}
+@keyframes link{
+    10%{
+        border-bottom:2px solid teal;
+    }
+    35%{
+        border-right:2px solid teal;
+    }
+    60%{
+        border-top:2px solid teal;
+    }
+    85%{
+        border-left:2px solid teal;
+    }
+}
+.main{
+    width:80%;
+    background-color:rgba(78, 213, 231, 0.452);
+    margin: auto;
+    margin-top: 20px;
+    text-align: center;
+    padding:20px;
+    box-shadow:1px 1px 2px #333;
+}
+table{
+    text-align: center;
+    display: flex;
+    justify-content: center; 
+    border-collapse: collapse;
+    /* border-spacing:0px; */
+}
+td,th{
+    border:1px solid teal;
+    padding: 20px;
+}
+td a{
+    color: #333;
+    text-decoration: underline;
+}
+label{
+    display:block;
+}
+#err{
+    font-size:12px;
+    color:red;
+}
