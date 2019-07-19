@@ -10,6 +10,14 @@
     <title>Document</title>
 </head>
 <body>
+    <?php
+        session_start();
+        if(!(isset($_SESSION['user']))){
+            echo "<script>window.location='login.php'</script>";
+        }else{
+            $user=$_SESSION['user'];
+        }
+    ?>
     <div class="header">
         <h1 id="title"><i class="far fa-comments"></i> way2sms</h1>
         <ul>
@@ -23,7 +31,7 @@
     <div class="form">
         <form action="" method="POST" onsubmit="return checkgrp()">
             <label for="group">
-                Group name 
+                Group name
                 <input type="text" name="g_name" id="g_name">
             </label><br>
             <input type="submit" value="Create group">
@@ -36,37 +44,37 @@
                 <table>
                     <tr>
                         <th>Group Id</th>
-                        <th>Group name</th> 
+                        <th>Group name</th>
                         <th colspan=2>Controls</th>
                     </tr>
             ";
                 $con = mysqli_connect('localhost','root','','way2sms');
-                $q = "SELECT * from group_table";
+                $q = "SELECT * from group_table where user='$user'";
                 $res = mysqli_query($con,$q);
                 while($row = mysqli_fetch_array($res)){
                     echo "
                         <tr>
                             <td>$row[g_id]</td>
-                            <td>$row[g_name]</td>    
-                            <td><a href='edit.php?id=`$row[g_id]`'>Edit</a></td>    
-                            <td><a href='delete.php'>Delete</a></td>                
+                            <td>$row[g_name]</td>
+                            <td><a href='edit.php?id=`$row[g_id]`'>Edit</a></td>
+                            <td><a href='delete.php'>Delete</a></td>
                         </tr>
                     ";
                 }
             ?>
-        
+
         </table>
         <?php
         if(isset($_REQUEST['g_name'])){
             $g_name = $_REQUEST['g_name'];
             $con = mysqli_connect('localhost','root','','way2sms');
-            $q = "INSERT into group_table values('','$g_name')";//Or else we can pass NULL in place of '' . It accepts NULL value.
+            $q = "INSERT into group_table values('','$g_name','$user')";//Or else we can pass NULL in place of '' . It accepts NULL value.
             $res = mysqli_query($con,$q);
             if($res){
                 echo "Group Saved";
                 echo "<script>window.location.href='group.php';</script>";
             }
-            else 
+            else
                 echo "<script>alert('Group name already exists.')</script>";
         }
         ?>

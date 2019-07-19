@@ -10,6 +10,14 @@
     <title>Document</title>
 </head>
 <body>
+    <?php
+        session_start();
+        if(!(isset($_SESSION['user']))){
+            echo "<script>window.location='login.php'</script>";
+        }else{
+            $user=$_SESSION['user'];
+        }
+    ?>
     <div class="header">
         <h1 id="title"><i class="far fa-comments"></i> way2sms</h1>
         <ul>
@@ -27,7 +35,7 @@
             <option selected disabled>Name</option>
             <?php
                 $con = mysqli_connect('localhost','root','','way2sms');
-                $q = "SELECT * from group_table";
+                $q = "SELECT * from group_table where user='$user'";
                 $res = mysqli_query($con,$q);
                 while($row = mysqli_fetch_array($res)){
                     echo "<option>$row[g_name]</option>";
@@ -40,16 +48,16 @@
     </div>
     <div class="main">
         <?php
-        if(isset($_REQUEST['g_name'])){ 
+        if(isset($_REQUEST['g_name'])){
             // echo "<script>document.getElementById('g_name').value = `$_REQUEST['g_name']`;</script>";
             echo "
                 <form action='' method='POST' onsubmit='return checksms2()'>
-                    <select name='c_name' style='padding:5px 20px;' id='c_name'> 
+                    <select name='c_name' style='padding:5px 20px;' id='c_name'>
                         <option disabled selected>Person</option>
             ";
             $g_name = $_REQUEST['g_name'];
             $con = mysqli_connect('localhost','root','','way2sms');
-            $q = "SELECT * from contact_table where g_name='$g_name'";
+            $q = "SELECT * from contact_table where g_name='$g_name' and user='$user'";
             $res = mysqli_query($con,$q);
             while($row = mysqli_fetch_array($res)){
                 echo "
@@ -60,7 +68,7 @@
                 </select><br><br>
                 <textarea name='msg' placeholder='Message' rows=4 cols=18></textarea><br>
                 <input type='submit' value='SEND'>
-                </form> 
+                </form>
             ";
         }
         ?>

@@ -10,6 +10,14 @@
     <title>Document</title>
 </head>
 <body>
+    <?php
+        session_start();
+        if(!(isset($_SESSION['user']))){
+            echo "<script>window.location='login.php'</script>";
+        }else{
+            $user=$_SESSION['user'];
+        }
+    ?>
     <div class="header">
         <h1 id="title"><i class="far fa-comments"></i> way2sms</h1>
         <ul>
@@ -17,7 +25,7 @@
             <li><a href="group.php">New group</a></li>
             <li><a href="contact.php">New contact</a></li>
             <li><a href="smspage.php">Sms</a></li>
-            <li><a href="login.php">Logout</a></li>
+            <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
     <div class="main">

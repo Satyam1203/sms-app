@@ -10,6 +10,15 @@
     <title>Document</title>
 </head>
 <body>
+    <?php
+        session_start();
+        if(isset($_SESSION['user'])){
+            $user= $_SESSION['user'];
+        }
+        else{
+            echo "<script>window.location = 'login.php'</script>";
+        }
+    ?>
     <div class="header">
         <h1 id="title"><i class="far fa-comments"></i> way2sms</h1>
         <ul>
@@ -24,12 +33,12 @@
         <h1 style="text-decoration:underline;">ADD CONTACT</h1>
         <form action="" method="POST" onsubmit="return checkContact()">
             <label for="g_name2">
-                Select Group 
-                <select name="g_name2" id="g_name2"> 
+                Select Group
+                <select name="g_name2" id="g_name2">
                     <option selected disabled>Name</option>
                     <?php
                         $con = mysqli_connect('localhost','root','','way2sms');
-                        $q = "SELECT * from group_table";
+                        $q = "SELECT * from group_table where user='$user'";
                         $res = mysqli_query($con,$q);
                         while($row = mysqli_fetch_array($res)){
                             echo "
@@ -49,21 +58,21 @@
                 <input type="text" name="c_phone" id="c_phone" placeholder="Mobile Number" required>
             </label><br>
             <input type="submit" value="Save">
-        </form> 
-        
-        <?php 
+        </form>
+
+        <?php
         if(isset($_REQUEST['c_phone'])){
             $g_name = $_REQUEST['g_name2'];
             $c_name = $_REQUEST['c_name'];
             $c_phone = $_REQUEST['c_phone'];
             $con = mysqli_connect('localhost','root','','way2sms');
-            $q = "INSERT into contact_table values('','$c_name','$c_phone','$g_name')";
+            $q = "INSERT into contact_table values('','$c_name','$c_phone','$g_name','$user')";
             $res = mysqli_query($con,$q);
             if($res)
                 echo "<br>Contact saved successfully";
-            else 
+            else
                 echo "<br>Can't save !! Try Later";
-        } 
+        }
         ?>
     </div>
     <div class="main">
@@ -79,20 +88,20 @@
                     </tr>
             ";
                 $con = mysqli_connect('localhost','root','','way2sms');
-                $q = "SELECT * from contact_table";
+                $q = "SELECT * from contact_table where user='$user'";
                 $res = mysqli_query($con,$q);
                 while($row = mysqli_fetch_array($res)){
                     echo "
                         <tr>
                             <td>$row[c_id]</td>
-                            <td>$row[c_name]</td>    
-                            <td>$row[c_phone]</td>    
-                            <td>$row[g_name]</td>                
+                            <td>$row[c_name]</td>
+                            <td>$row[c_phone]</td>
+                            <td>$row[g_name]</td>
                         </tr>
                     ";
                 }
             ?>
-        
+
         </table>
     </div>
     <script src="script.js"></script>

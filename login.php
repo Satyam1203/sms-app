@@ -10,11 +10,17 @@
     <title>Document</title>
 </head>
 <body>
+    <?php
+        session_start();
+        if(isset($_SESSION['user'])){
+            echo "<script>window.location = 'index.php'</script>";
+        }
+    ?>
     <header class="header">
         <h1><i class="far fa-comments"></i> way2sms</h1>
         <a href="reg.php">Register</a>
         <a href="login.php">Log-in</a>
-    </header>   
+    </header>
     <div class="form">
         <form action="" onsubmit="return check()" method="POST">
             <label for="phone">
@@ -22,7 +28,7 @@
                 <input type="text" name="phone2" id="phone">
             </label><br><br>
             <label for="password">
-                Password 
+                Password
                 <input type="password" name="password" id="pass">
             </label><br><br>
             <input type="submit" value="Log In"><br><br>
@@ -34,15 +40,19 @@
                 $con = mysqli_connect('localhost','root','','way2sms');
                 $q = "SELECT * from login where phone='$phone'";
                 $res = mysqli_query($con,$q);
+                // session_abort();
                 if($row = mysqli_fetch_array($res)){
-                    if($row['password']==$password)
+                    if($row['password']==$password){
+                        session_start();
+                        $_SESSION['user']=$phone;
                         echo "Login Successfully!!
                             <script>window.location.href = 'index.php'</script>
-                        "; 
+                        ";
+                    }
                     else
                         echo "Wrong password";
                 }
-                else 
+                else
                     echo "Invalid number or Failed connecting to database";
             }
         ?>
